@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+name: backend
+namespace: argocd
+finalizers:
+- resources-finalizer.argocd.argoproj.io
+spec:
+project: default
+source:
+repoURL: https://github.com/Techytobii/advanced-gitops-Techniques.git
+targetRevision: HEAD
+path: services/backend/overlays/dev
+destination:
+server: https://kubernetes.default.svc # replace with workload cluster server if deploying to other cluster
+syncPolicy:
+automated:
+prune: true
+selfHeal: true
